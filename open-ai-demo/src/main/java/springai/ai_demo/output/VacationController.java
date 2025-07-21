@@ -26,4 +26,13 @@ public class VacationController {
                 .content();
     }
 
+    @GetMapping("/structured")
+    public Itinerary structured(){
+        return chatClient.prompt()
+                .user("I want to plan a trip to Hawaii. give me a list of things to do.")
+                .call()
+                .entity(Itinerary.class);
+    }
+
+
 }
