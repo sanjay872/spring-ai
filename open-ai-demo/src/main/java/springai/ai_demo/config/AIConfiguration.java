@@ -5,6 +5,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,12 @@ public class AIConfiguration {
     public ChatClient openAIChartClientMemory(OpenAiChatModel openAiChatModel, ChatMemory chatMemory){
       return  ChatClient.builder(openAiChatModel)
                 .defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
+                .build();
+    }
+
+    @Bean
+    public ChatClient openAIEval(OpenAiChatModel openAiChatModel){
+        return ChatClient.builder(openAiChatModel).defaultOptions(OpenAiChatOptions.builder().temperature(0.1d).build())
                 .build();
     }
 }
